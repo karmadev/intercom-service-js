@@ -5,14 +5,14 @@ Communicate with the Intercom API from your backend.
 ## Quickstart
 
 ```shell
-  npm install intercom-node
+  npm install intercom-service-js
 ```
 
 #### Basic Usage
 Basic usage involves adding `persistReducer` and `persistStore` to your setup. **IMPORTANT** Every app needs to decide how many levels of state they want to "merge". The default is 1 level. Please read through the [state reconciler docs](#state-reconciler) for more information.
 
 ```js
-import { IntercomService } from 'intercom-node'
+import { IntercomService } from 'intercom-service-js'
 
 // Initialize the IntercomService
 const intercomService = new IntercomService({ token: process.env.INTERCOM_AUTH_TOKEN })
