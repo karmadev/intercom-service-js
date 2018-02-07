@@ -1,6 +1,5 @@
 import * as Intercom from 'intercom-client'
 import * as _ from 'lodash'
-import * as winston from 'winston'
 import * as retry from 'retry'
 import {
   ICompanyDataObject,

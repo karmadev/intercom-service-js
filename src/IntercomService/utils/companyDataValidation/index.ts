@@ -5,7 +5,6 @@ import {
   IIntercomValidationResultObject,
 } from '../../types'
 import * as _ from 'lodash'
-import * as winston from 'winston'
 
 export const validateDataObject = (
   data: ICompanyDataObject | IUserDataObject
