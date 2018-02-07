@@ -9,7 +9,7 @@ Communicate with the Intercom API from your backend.
 ```
 
 #### Basic Usage
-Basic usage involves adding `persistReducer` and `persistStore` to your setup. **IMPORTANT** Every app needs to decide how many levels of state they want to "merge". The default is 1 level. Please read through the [state reconciler docs](#state-reconciler) for more information.
+Basic usage involves adding the `IntercomService` to your setup. **IMPORTANT** You need to fetch your oww access token and feed it to `IntercomService` (as seen below). Read more here [Create an Access Token](https://developers.intercom.com/docs/personal-access-tokens)
 
 ```js
 import { IntercomService } from 'intercom-service-js'
