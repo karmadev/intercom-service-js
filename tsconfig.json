@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "moduleResolution": "node",
+    "removeComments": true,
+    "noImplicitAny": false,
+    "suppressImplicitAnyIndexErrors": true,
+    "sourceMap": true,
+    "outDir": "./lib",
+    "declaration": true,
+    "pretty": false
+  },
+  "include": ["src/**/*"]
+}

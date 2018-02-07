@@ -1,0 +1,80 @@
+{
+  "name": "@karmalicious/intercom-service-js",
+  "version": "0.0.1",
+  "description": "Library for interacting with intercom",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "scripts": {
+    "test": "jest",
+    "precommit": "lint-staged",
+    "release": "tsc && standard-version",
+    "commit": "git-cz",
+    "commit-retry": "git cz --retry"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karmadev/intercom-service-js.git"
+  },
+  "keywords": [
+    "analytics",
+    "services",
+    "intercom"
+  ],
+  "author": {
+    "name": "Joel Baudin",
+    "email": "joel@karma.life"
+  },
+  "license": "MIT",
+  "private": false,
+  "bugs": {
+    "url": "https://github.com/karmadev/intercom-service-js/issues"
+  },
+  "homepage": "https://github.com/karmadev/intercom-service-js#readme",
+  "devDependencies": {
+    "@types/jest": "^21.1.8",
+    "@types/lodash": "^4.14.88",
+    "@types/node": "^9.4.0",
+    "commitizen": "^2.9.6",
+    "cz-conventional-changelog": "^2.1.0",
+    "eslint": "^4.11.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-prettier": "^2.7.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.4.0",
+    "husky": "^0.14.3",
+    "jest": "^21.2.1",
+    "lint-staged": "^5.0.0",
+    "prettier": "^1.8.2",
+    "standard-version": "^4.2.0",
+    "ts-jest": "^21.2.2"
+  },
+  "dependencies": {
+    "intercom-client": "^2.9.1",
+    "lodash": "^4.17.4",
+    "retry": "^0.10.1",
+    "typescript": "^2.6.1"
+  },
+  "jest": {
+    "transform": {
+      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ]
+  },
+  "lint-staged": {
+    "*.{ts,js,json}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  }
+}
