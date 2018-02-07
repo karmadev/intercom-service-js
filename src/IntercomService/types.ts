@@ -47,6 +47,11 @@ export interface IUserDataObject {
   custom_attributes?: object
 }
 
+export interface ITagCompanyData {
+  company_id: string
+  tag: string
+}
+
 export interface IIntercomValidationResultObject {
   validated: boolean
   errors: string[]

@@ -15,9 +15,9 @@ Basic usage involves adding the `IntercomService` to your setup. **IMPORTANT** Y
 import { IntercomService } from 'intercom-service-js'
 
 // Initialize the IntercomService
-const intercomService = new IntercomService({ token: process.env.INTERCOM_AUTH_TOKEN })
+const intercom = new IntercomService({ token: process.env.INTERCOM_AUTH_TOKEN })
 // ways down in your code ...
-intercomService.createOrUpdateUser({
+intercom.createOrUpdateUser({
     user_id: `${data.user_id}`,
     name: data.user_name,
     email: data.user_email,
@@ -51,3 +51,137 @@ intercomService.createOrUpdateUser({
     })
   })
 ```
+
+## API
+
+All functions will **return** a `Promise` with the following structure (`?` suffix indicates it's optional). Note: this syntax is a [TypeScript interface](https://www.typescriptlang.org/docs/handbook/interfaces.html).
+
+```js
+{
+  success: boolean
+  data?: {
+    internal_id: string
+    intercom_id: string
+    result: {
+      // This contains the body of the response from the API
+      [propName: string]: any
+    }
+  }
+  error?: {
+    code: string
+    message: string
+    errors: string[]
+    data?: {
+      internal_id: string
+    }
+    originalError?: any
+  }
+}
+```
+
+Async/Await
+
+Please note we're using `await` (of **async/await**) in the examples below. We're using [TypeScript](https://www.typescriptlang.org) to allow that but there are lot's of other way to allow that so pick your favourite.
+
+### tagCompany
+
+Example
+
+```js
+const tagResult = await intercom.tagCompany({
+  company_id: '1234',
+  tag: 'test tag',
+})
+```
+
+Accepts
+
+- **company_id** (`string`)
+- **tag** (`object`)
+
+Mandatory
+
+- `company_id`
+- `tag`
+
+### createOrUpdateCompany
+
+Example
+
+```js
+const result = await intercom.createOrUpdateCompany({ company_id: '233' })
+```
+
+Accepts
+
+- **company_id** (`string`)
+- **remote_created_at** (`string`)
+- **name** (`string`)
+- **monthly_spend** (`number`)
+- **plan** (`string`)
+- **size** (`number`)
+- **website** (`string`)
+- **industry** (`string`)
+- **custom_attributes** (`object`)
+
+Mandatory
+
+- `company_id`
+
+### createOrUpdateUser
+
+Example
+
+```js
+const userDataData = {
+  user_id: user.id,
+  email: user.email,
+  name: user.name,
+  companies: [
+    {
+      company_id: company.id,
+    },
+  ],
+}
+const result = await intercom.createOrUpdateUser(userDataData)
+```
+
+Accepts
+
+- **user_id** (`string`)
+- **email** (`string`)
+- **name** (`string`)
+- **phone** (`string`)
+- **website** (`string`)
+- **signed_up_at** (`string`)
+- **last_request_at** (`string`)
+- **last_seen_ip** (`string`)
+- **last_seen_user_agent** (`string`)
+- **update_last_request_at** (`string`)
+- **unsubscribed_from_emails** (`boolean`)
+- **new_session** (`boolean`)
+- **companies** (`Array<object>`)
+- **custom_attributes** (`object`)
+
+Mandatory
+
+- `user_id`
+- `email`
+
+### deleteUser
+
+Example
+
+```js
+const result = await intercom.deleteUser({
+  user_id: user.id,
+})
+```
+
+Accepts
+
+- **userId** (`string`)
+
+Mandatory
+
+- `userId`

@@ -7,6 +7,7 @@ import {
   IDeleteUserObject,
   IIntercomServiceObject,
   IIntercomServiceConstructorObject,
+  ITagCompanyData,
 } from './types'
 import { validateDataObject } from './utils/companyDataValidation'
 import { jsonParse } from './utils/parseTools'
@@ -21,20 +22,20 @@ export class IntercomService {
   /**
    * Tag a company in Intercom
    */
-  public tagCompany(companyId: string, tag: string): Promise<IIntercomServiceObject> {
+  public tagCompany(params: ITagCompanyData): Promise<IIntercomServiceObject> {
     return new Promise(async resolve => {
       try {
         const { intercom } = this
-        const tagToSave = tag ? tag : 'activated'
+        const tagToSave = params.tag
         const actionResult = await intercom.tags.tag({
           name: tagToSave,
-          companies: [{ company_id: `${companyId}` }],
+          companies: [{ company_id: `${params.company_id}` }],
         })
         const companyInfo = actionResult.body
         resolve({
           success: true,
           data: {
-            internal_id: companyId,
+            internal_id: params.company_id,
             intercom_id: companyInfo.id,
             result: companyInfo,
           },
@@ -47,7 +48,9 @@ export class IntercomService {
             ? parsedError.body.errors[0]
             : {
                 code: 'UnknownError',
-                message: `Error when tagging company with id '${companyId}' in Intercom. Error was '${parsedError}'`,
+                message: `Error when tagging company with id '${
+                  params.company_id
+                }' in Intercom. Error was '${parsedError}'`,
               }
         resolve({
           success: false,
@@ -57,7 +60,7 @@ export class IntercomService {
             errors: [firstError.message],
             originalError: `${error}`,
             data: {
-              internal_id: companyId,
+              internal_id: params.company_id,
             },
           },
         })

@@ -277,7 +277,10 @@ describe('#IntercomService tagCompany() integration test', () => {
 
     const intercom = new IntercomService({ token: 'abc123', MockEffect })
 
-    const tagResult = await intercom.tagCompany('1234', 'test tag')
+    const tagResult = await intercom.tagCompany({
+      company_id: '1234',
+      tag: 'test tag',
+    })
     expect(tagResult).toBeDefined()
     expect(tagResult.success).toBeTruthy()
     expect(tagResult.data.internal_id).toEqual('1234')
@@ -309,7 +312,10 @@ describe('#IntercomService tagCompany() integration test', () => {
 
     const intercom = new IntercomService({ token: 'abc123', MockEffect })
 
-    const tagResult = await intercom.tagCompany('1234', 'test tag')
+    const tagResult = await intercom.tagCompany({
+      company_id: '1234',
+      tag: 'test tag',
+    })
     expect(tagResult).toBeDefined()
     expect(tagResult.success).toBeFalsy()
     expect(tagResult.error).toBeDefined()
@@ -323,7 +329,10 @@ describe('#IntercomService tagCompany() integration test', () => {
 describe('#IntercomService tagCompany() LIVE integration test', () => {
   test('should return expected values for valid object', async () => {
     const intercom = new IntercomService({ token: intercomTestAPIToken })
-    const tagResult = await intercom.tagCompany(liveTestCompanyId, 'tested')
+    const tagResult = await intercom.tagCompany({
+      company_id: liveTestCompanyId,
+      tag: 'tested',
+    })
     expect(tagResult).toBeDefined()
     expect(tagResult.success).toBeTruthy()
     expect(tagResult.data.internal_id).toEqual(liveTestCompanyId)
