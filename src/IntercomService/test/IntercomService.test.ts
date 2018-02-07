@@ -2,7 +2,7 @@ import { ICompanyDataObject, IUserDataObject, IDeleteUserObject } from '../types
 import { IntercomService } from '../index'
 import { generateRandomUsers } from './utils/generateUsers'
 
-const intercomTestAPIToken = 'dG9rOmIzNTQ1MDMzXzI4NTdfNDM5MV85NTc3X2RmYWMyNzkyZDYyZToxOjA='
+const intercomTestAPIToken = ''
 const liveTestCompanyId = '546484'
 const liveTestUserId = '87465'
 const liveTestEmail = 'test.intercom@intercomtest.life'
