@@ -5,7 +5,7 @@ Communicate with the Intercom API from your Node JS backend. This package is bui
 ## Quickstart
 
 ```shell
-  npm install intercom-service-js
+  yarn add intercom-service-js
 ```
 
 #### Basic Usage
