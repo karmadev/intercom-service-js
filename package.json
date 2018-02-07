@@ -1,7 +1,7 @@
 {
-  "name": "@karmalicious/intercom-service-js",
+  "name": "intercom-service-js",
   "version": "0.0.1",
-  "description": "Library for interacting with intercom",
+  "description": "Library for interacting with Intercom built the native intercom-client package",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "scripts": {
@@ -25,7 +25,6 @@
     "email": "joel@karma.life"
   },
   "license": "MIT",
-  "private": false,
   "bugs": {
     "url": "https://github.com/karmadev/intercom-service-js/issues"
   },
