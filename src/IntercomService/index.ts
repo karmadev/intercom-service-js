@@ -233,7 +233,7 @@ export class IntercomService {
     })
   }
 
-  // Bulk operations
+  /*   // Bulk operations
   private updateUserWithRetry(user: IUserDataObject): Promise<IIntercomServiceObject> {
     return new Promise(resolve => {
       try {
@@ -331,5 +331,5 @@ export class IntercomService {
         })
       }
     })
-  }
+  } */
 }
