@@ -1,6 +1,6 @@
 # Intercom Service for Node JS
 
-Communicate with the Intercom API from your Node JS backend. This package is built on top of the offical [intercom-node](https://github.com/intercom/intercom-node) package. It gives you TypeScript type definitions for alla exported functions and will validate the incoming data so it complies with the rules of the Intercom API.
+Communicate with the Intercom API from your Node JS backend. This package is built on top of the offical [intercom-node](https://github.com/intercom/intercom-node) package. It gives you TypeScript type definitions for all exported functions and will validate the incoming data so it complies with the rules of the Intercom API.
 
 ## Quickstart
 
@@ -9,7 +9,7 @@ Communicate with the Intercom API from your Node JS backend. This package is bui
 ```
 
 #### Basic Usage
-Basic usage involves adding the `IntercomService` to your setup. **IMPORTANT** You need to fetch your oww access token and feed it to `IntercomService` (as seen below). Read more here [Create an Access Token](https://developers.intercom.com/docs/personal-access-tokens).
+Basic usage involves adding the `IntercomService` to your setup. **IMPORTANT** You need to fetch your own access token and feed it to `IntercomService` (as seen below). Read more here [Create an Access Token](https://developers.intercom.com/docs/personal-access-tokens).
 
 ```js
 import { IntercomService } from 'intercom-service-js'
