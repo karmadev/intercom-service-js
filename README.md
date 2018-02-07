@@ -79,11 +79,11 @@ All functions will **return** a `Promise` with the following structure (`?` suff
 }
 ```
 
-Async/Await
+### Regarding `async/await`
 
-Please note we're using `await` (of **async/await**) in the examples below. We're using [TypeScript](https://www.typescriptlang.org) to allow that but there are lot's of other way to allow that so pick your favourite.
+Please note we're using `await` (of **async/await**) in the examples below. We're using [TypeScript](https://www.typescriptlang.org) to allow that but there are lot's of other ways to allow that so pick your favourite.
 
-### tagCompany
+### `tagCompany`
 
 Example
 
@@ -104,7 +104,7 @@ Mandatory
 - `company_id`
 - `tag`
 
-### createOrUpdateCompany
+### `createOrUpdateCompany`
 
 Example
 
@@ -128,7 +128,7 @@ Mandatory
 
 - `company_id`
 
-### createOrUpdateUser
+### `createOrUpdateUser`
 
 Example
 
@@ -168,7 +168,7 @@ Mandatory
 - `user_id`
 - `email`
 
-### deleteUser
+### `deleteUser`
 
 Example
 
