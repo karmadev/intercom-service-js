@@ -9,6 +9,7 @@ Communicate with the Intercom API from your Node JS backend. This package is bui
 ```
 
 #### Basic Usage
+
 Basic usage involves adding the `IntercomService` to your setup. **IMPORTANT** You need to fetch your own access token and feed it to `IntercomService` (as seen below). Read more here [Create an Access Token](https://developers.intercom.com/docs/personal-access-tokens).
 
 ```js
@@ -28,8 +29,8 @@ intercom.createOrUpdateUser({
       },
     ],
     custom_attributes: {
-      timezone: data.location_timezone,
-      city: data.location_city,
+      timezone: data.user_timezone,
+      city: data.user_city,
     },
   })
   .then(intercomUpdate => {
@@ -81,7 +82,7 @@ All functions will **return** a `Promise` with the following structure (`?` suff
 
 ### Regarding `async/await`
 
-Please note we're using `await` (of **async/await**) in the examples below. We're using [TypeScript](https://www.typescriptlang.org) to allow that but there are lot's of other ways to allow that so pick your favourite.
+Please note we're using `await` (of **async/await**) in the examples below. We're using [TypeScript](https://www.typescriptlang.org) to allow that but there are lot's of other ways so pick your favourite.
 
 ### `tagCompany`
 
