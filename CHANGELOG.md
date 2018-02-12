@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.6"></a>
+## [1.0.6](https://github.com/karmadev/intercom-service-js/compare/v1.0.5...v1.0.6) (2018-02-12)
+
+
+### Bug Fixes
+
+* Fixed handling of incoming Errors ([4aa6bd7](https://github.com/karmadev/intercom-service-js/commit/4aa6bd7))
+
+
+
 <a name="1.0.5"></a>
 ## [1.0.5](https://github.com/karmadev/intercom-service-js/compare/v1.0.4...v1.0.5) (2018-02-08)
 
