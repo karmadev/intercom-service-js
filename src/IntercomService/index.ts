@@ -1,6 +1,6 @@
 import * as Intercom from 'intercom-client'
 import * as _ from 'lodash'
-import * as retry from 'retry'
+import * as RateLimiter from 'request-rate-limiter'
 import {
   ICompanyDataObject,
   IUserDataObject,
@@ -133,7 +133,6 @@ export class IntercomService {
     return new Promise(async resolve => {
       try {
         const { intercom } = this
-        let validated = false
         const validationResult = validateDataObject(userData)
         if (validationResult.validated) {
           const actionResult = await intercom.users.create(userData)
@@ -161,6 +160,7 @@ export class IntercomService {
         }
       } catch (error) {
         const err = jsonParse(error.message) as IIntercomErrorResponse
+        const statusCode = err && err.statusCode ? err.statusCode : -1
         const errorCode =
           err && err.body && err.body.errors && err.body.errors[0]
             ? err.body.errors[0].code
@@ -172,6 +172,7 @@ export class IntercomService {
         resolve({
           success: false,
           error: {
+            statusCode: statusCode,
             code: errorCode,
             message: errorMessage,
             errors: [errorMessage],
@@ -226,36 +227,8 @@ export class IntercomService {
     })
   }
 
-  private updateUserWithRetry(user: IUserDataObject): Promise<IIntercomServiceObject> {
-    return new Promise((resolve, reject) => {
-      try {
-        const operation = retry.operation()
-
-        operation.attempt(currentAttempt => {
-          this.createOrUpdateUser({
-            user_id: `${user.user_id}`,
-            name: user.name,
-            email: user.email,
-          }).then(userUpdate => {
-            if (operation.retry(userUpdate.error)) {
-              return
-            }
-
-            if (!userUpdate.success) {
-              reject(new Error(userUpdate.error.message))
-            } else {
-              resolve()
-            }
-          })
-        })
-      } catch (error) {
-        reject(new Error(error.message))
-      }
-    })
-  }
-
   public updateUsersInBulk(users: IUserDataObject[]): Promise<IIntercomServiceObject> {
-    return new Promise(async resolve => {
+    return new Promise(resolve => {
       if (_.size(users) < 1) {
         resolve({
           success: false,
@@ -270,14 +243,41 @@ export class IntercomService {
         })
         return
       }
-      const errors = []
-      _.forEach(users, async user => {
-        try {
-          await this.updateUserWithRetry(user)
-        } catch (error) {
-          errors.push(error)
-        }
+
+      const limiter = new RateLimiter({
+        rate: 80,
+        interval: 10,
+        backoffCode: 429,
+        backoffTime: 10,
+        maxWaitingTime: 300,
       })
+
+      const errors = []
+      _.forEach(users, user => {
+        limiter
+          .request()
+          .then(backoff => {
+            this.createOrUpdateUser({
+              user_id: `${user.user_id}`,
+              name: user.name,
+              email: user.email,
+            }).then(userUpdate => {
+              if (!userUpdate.success) {
+                if (_.isEqual(userUpdate.error.statusCode, 429)) {
+                  backoff()
+                } else {
+                  errors.push(userUpdate.error)
+                }
+              }
+              // all went good good with this operation on to the next one
+            })
+          })
+          .catch(error => {
+            // the error object is set if the limiter is overflowing or is not able to execute your request in time
+            errors.push(error.message)
+          })
+      })
+
       if (_.size(errors) > 0) {
         resolve({
           success: false,

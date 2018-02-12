@@ -8,6 +8,7 @@ export interface IIntercomServiceObject {
     }
   }
   error?: {
+    statusCode?: number
     code: string
     message: string
     errors: string[]

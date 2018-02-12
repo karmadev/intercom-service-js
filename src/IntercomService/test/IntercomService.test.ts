@@ -2,13 +2,13 @@ import { ICompanyDataObject, IUserDataObject, IDeleteUserObject } from '../types
 import { IntercomService } from '../index'
 import { generateRandomUsers } from './utils/generateUsers'
 
-const intercomTestAPIToken = ''
+const intercomTestAPIToken = 'dG9rOjVkZDk3MjA4XzE2Y2FfNGM0Zl84NTkzX2Q5NmNmMTkxNGU1NjoxOjA='
 const liveTestCompanyId = '546484'
 const liveTestUserId = '87465'
 const liveTestEmail = 'test.intercom@intercomtest.life'
 const liveTestFullName = 'Test McTestson'
 
-describe('#IntercomService createOrUpdateUser() integration test', () => {
+/* describe('#IntercomService createOrUpdateUser() integration test', () => {
   test('should return expected values for valid object', async () => {
     const create = userData => {
       return new Promise(resolve => {
@@ -338,15 +338,15 @@ describe('#IntercomService tagCompany() LIVE integration test', () => {
     expect(tagResult.data.internal_id).toEqual(liveTestCompanyId)
     expect(tagResult.data.intercom_id).toBeDefined()
   })
-})
+}) */
 
-/* describe('#IntercomService updateUsersInBulk() LIVE integration test', () => {
+describe('#IntercomService updateUsersInBulk() LIVE integration test', () => {
   test('dont know what will happen...', async () => {
     const intercom = new IntercomService({ token: intercomTestAPIToken })
-    const users = generateRandomUsers(100)
+    const users = generateRandomUsers(1000)
     // console.log('users', users)
     const updateResult = await intercom.updateUsersInBulk(users)
     expect(updateResult).toBeDefined()
     expect(updateResult.success).toBeTruthy()
   })
-}) */
+})

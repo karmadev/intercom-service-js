@@ -51,7 +51,7 @@
   "dependencies": {
     "intercom-client": "^2.9.1",
     "lodash": "^4.17.4",
-    "retry": "^0.10.1",
+    "request-rate-limiter": "^1.0.2",
     "typescript": "^2.6.1"
   },
   "jest": {
