@@ -8,6 +8,7 @@ import {
   IIntercomServiceObject,
   IIntercomServiceConstructorObject,
   ITagCompanyData,
+  IIntercomErrorResponse,
 } from './types'
 import { validateDataObject } from './utils/companyDataValidation'
 import { jsonParse } from './utils/parseTools'
@@ -41,24 +42,21 @@ export class IntercomService {
           },
         })
       } catch (error) {
-        const parsedFullError = jsonParse(error)
-        const parsedError = parsedFullError.message ? parsedFullError.message : parsedFullError
-        const firstError =
-          parsedError && parsedError.body && parsedError.body.errors
-            ? parsedError.body.errors[0]
-            : {
-                code: 'UnknownError',
-                message: `Error when tagging company with id '${
-                  params.company_id
-                }' in Intercom. Error was '${parsedError}'`,
-              }
+        const err = jsonParse(error.message) as IIntercomErrorResponse
+        const errorCode =
+          err && err.body && err.body.errors && err.body.errors[0]
+            ? err.body.errors[0].code
+            : 'unknown_error'
+        const errorMessage =
+          err && err.body && err.body.errors && err.body.errors[0]
+            ? err.body.errors[0].message
+            : `Error when tagging company with id '${params.company_id}' in Intercom`
         resolve({
           success: false,
           error: {
-            code: firstError.code,
-            message: firstError.message,
-            errors: [firstError.message],
-            originalError: `${error}`,
+            code: errorCode,
+            message: errorMessage,
+            errors: [errorMessage],
             data: {
               internal_id: params.company_id,
             },
@@ -102,24 +100,23 @@ export class IntercomService {
           })
         }
       } catch (error) {
-        const parsedFullError = jsonParse(error)
-        const parsedError = parsedFullError.message ? parsedFullError.message : parsedFullError
-        const firstError =
-          parsedError && parsedError.body && parsedError.body.errors
-            ? parsedError.body.errors[0]
-            : {
-                code: 'unknown_error',
-                message: `Error when creating/updating company with id '${
-                  companyData.company_id
-                }' in Intercom. Error was '${parsedError}'`,
-              }
+        const err = jsonParse(error.message) as IIntercomErrorResponse
+        const errorCode =
+          err && err.body && err.body.errors && err.body.errors[0]
+            ? err.body.errors[0].code
+            : 'unknown_error'
+        const errorMessage =
+          err && err.body && err.body.errors && err.body.errors[0]
+            ? err.body.errors[0].message
+            : `Error when creating/updating company with id '${
+                companyData.company_id
+              }' in Intercom.`
         resolve({
           success: false,
           error: {
-            code: firstError.code,
-            message: firstError.message,
-            errors: [firstError.message],
-            originalError: `${error}`,
+            code: errorCode,
+            message: errorMessage,
+            errors: [errorMessage],
             data: {
               internal_id: companyData.company_id,
             },
@@ -153,7 +150,7 @@ export class IntercomService {
           resolve({
             success: false,
             error: {
-              code: 'ValidationFailed',
+              code: 'validation_failed',
               message: 'The validation of the incoming user object failed',
               errors: validationResult.errors,
               data: {
@@ -163,24 +160,21 @@ export class IntercomService {
           })
         }
       } catch (error) {
-        const parsedFullError = jsonParse(error)
-        const parsedError = parsedFullError.message ? parsedFullError.message : parsedFullError
-        const firstError =
-          parsedError && parsedError.body && parsedError.body.errors
-            ? parsedError.body.errors[0]
-            : {
-                code: 'unknown_error',
-                message: `Error when creating/updating user with id '${
-                  userData.user_id
-                }' in Intercom. Error was '${parsedError}'`,
-              }
+        const err = jsonParse(error.message) as IIntercomErrorResponse
+        const errorCode =
+          err && err.body && err.body.errors && err.body.errors[0]
+            ? err.body.errors[0].code
+            : 'unknown_error'
+        const errorMessage =
+          err && err.body && err.body.errors && err.body.errors[0]
+            ? err.body.errors[0].message
+            : `Error when creating/updating user with id '${userData.user_id}' in Intercom.`
         resolve({
           success: false,
           error: {
-            code: firstError.code,
-            message: firstError.message,
-            errors: [firstError.message],
-            originalError: `${error}`,
+            code: errorCode,
+            message: errorMessage,
+            errors: [errorMessage],
             data: {
               internal_id: userData.user_id,
             },
@@ -191,7 +185,7 @@ export class IntercomService {
   }
 
   /**
-   * Create or Update a user in Intercom
+   * Delete a user in Intercom
    */
   public deleteUser(deleteUserParams: IDeleteUserObject): Promise<IIntercomServiceObject> {
     return new Promise(async resolve => {
@@ -208,24 +202,21 @@ export class IntercomService {
           },
         })
       } catch (error) {
-        const parsedFullError = jsonParse(error)
-        const parsedError = parsedFullError.message ? parsedFullError.message : parsedFullError
-        const firstError =
-          parsedError && parsedError.body && parsedError.body.errors
-            ? parsedError.body.errors[0]
-            : {
-                code: 'unknown_error',
-                message: `Error when deleting user with id '${
-                  deleteUserParams.user_id
-                }' in Intercom. Error was '${parsedError}'`,
-              }
+        const err = jsonParse(error.message) as IIntercomErrorResponse
+        const errorCode =
+          err && err.body && err.body.errors && err.body.errors[0]
+            ? err.body.errors[0].code
+            : 'unknown_error'
+        const errorMessage =
+          err && err.body && err.body.errors && err.body.errors[0]
+            ? err.body.errors[0].message
+            : `Error when deleting user with id '${deleteUserParams.user_id}' in Intercom.`
         resolve({
           success: false,
           error: {
-            code: firstError.code,
-            message: firstError.message,
-            errors: [firstError.message],
-            originalError: `${error}`,
+            code: errorCode,
+            message: errorMessage,
+            errors: [errorMessage],
             data: {
               internal_id: deleteUserParams.user_id,
             },
@@ -235,11 +226,9 @@ export class IntercomService {
     })
   }
 
-  /*   // Bulk operations
   private updateUserWithRetry(user: IUserDataObject): Promise<IIntercomServiceObject> {
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       try {
-        console.log('updateUserWithRetry...')
         const operation = retry.operation()
 
         operation.attempt(currentAttempt => {
@@ -249,45 +238,24 @@ export class IntercomService {
             email: user.email,
           }).then(userUpdate => {
             if (operation.retry(userUpdate.error)) {
-              console.log('Retrying because userUpdate.error', userUpdate.error)
               return
             }
 
             if (!userUpdate.success) {
-              console.log('Failed because userUpdate.error', userUpdate.error)
-              resolve({
-                success: false,
-                error: {
-                  code: 'UPDATE_ERROR',
-                  message: operation.mainError(),
-                  errors: [],
-                },
-              })
+              reject(new Error(userUpdate.error.message))
             } else {
-              console.log('updateUserWithRetry user', user)
-              resolve({
-                success: true,
-              })
+              resolve()
             }
           })
         })
       } catch (error) {
-        console.log('updateUserWithRetry caught error', error)
-        resolve({
-          success: false,
-          error: {
-            code: 'CAUGHT_ERROR',
-            message: error.message,
-            errors: [],
-          },
-        })
+        reject(new Error(error.message))
       }
     })
   }
 
   public updateUsersInBulk(users: IUserDataObject[]): Promise<IIntercomServiceObject> {
     return new Promise(async resolve => {
-      console.log('updateUsersInBulk...')
       if (_.size(users) < 1) {
         resolve({
           success: false,
@@ -305,33 +273,26 @@ export class IntercomService {
       const errors = []
       _.forEach(users, async user => {
         try {
-          const result = await this.updateUserWithRetry(user)
-          if (!result.success) {
-            errors.push(result.error)
-            console.log('updateUsersInBulk returned error', result.error)
-          }
+          await this.updateUserWithRetry(user)
         } catch (error) {
-          console.log('updateUsersInBulk caught error', error)
           errors.push(error)
         }
       })
       if (_.size(errors) > 0) {
-        console.log('updateUsersInBulk errors', errors)
         resolve({
           success: false,
           error: {
-            code: 'NO_DATA',
+            code: 'operation_error',
             message:
               'The bulk operation experienced errors. See the errors array for more information',
             errors,
           },
         })
       } else {
-        console.log('updateUsersInBulk all is good!')
         resolve({
           success: true,
         })
       }
     })
-  } */
+  }
 }

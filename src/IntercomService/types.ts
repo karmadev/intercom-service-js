@@ -18,6 +18,22 @@ export interface IIntercomServiceObject {
   }
 }
 
+export interface IIntercomErrorResponse {
+  statusCode: number
+  body: {
+    type: string
+    request_id: string
+    errors: [
+      {
+        code: string
+        message: string
+      }
+    ]
+  }
+  headers: object
+  request: object
+}
+
 export interface ICompanyDataObject {
   company_id: string
   remote_created_at?: string
