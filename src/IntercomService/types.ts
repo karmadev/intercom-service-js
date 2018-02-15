@@ -1,8 +1,8 @@
 export interface IIntercomServiceObject {
   success: boolean
   data?: {
-    internal_id: string
-    intercom_id: string
+    internal_id?: string
+    intercom_id?: string
     result: {
       [propName: string]: any
     }
@@ -11,7 +11,7 @@ export interface IIntercomServiceObject {
     statusCode?: number
     code: string
     message: string
-    errors: string[]
+    errors?: string[]
     data?: {
       internal_id: string
     }
@@ -67,6 +67,23 @@ export interface IUserDataObject {
 export interface ITagCompanyData {
   company_id: string
   tag: string
+}
+
+export interface ICompanyTag {
+  company_id: string
+  id?: string
+  untag?: boolean
+}
+export interface IUserTag {
+  user_id: string
+  email?: string
+  id?: string
+  untag?: boolean
+}
+export interface ITagMultipleData {
+  companies: ICompanyTag[]
+  users: IUserTag[]
+  name: string
 }
 
 export interface IIntercomValidationResultObject {

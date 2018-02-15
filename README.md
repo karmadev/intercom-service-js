@@ -105,6 +105,39 @@ Mandatory
 - `company_id`
 - `tag`
 
+### `tagMultiple`
+
+Example
+
+```js
+const tagResult = await intercom.tagCompany({
+  name: 'test tag',
+  companies: [
+    {
+      company_id: '1234'
+    }
+  ],
+  users: [
+    {
+      user_id: '5678'
+    }
+  ]
+})
+```
+
+Accepts
+
+- An `object` with the following fields (see type for more information)
+  - **name** (`string`)
+  - **companies** (`Array<object>`)
+  - **users** (`Array<object>`)
+
+Mandatory
+
+- `name`
+- `companies`
+- `users`
+
 ### `createOrUpdateCompany`
 
 Example

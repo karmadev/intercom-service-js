@@ -9,6 +9,7 @@ import {
   IIntercomServiceConstructorObject,
   ITagCompanyData,
   IIntercomErrorResponse,
+  ITagMultipleData,
 } from './types'
 import { validateDataObject } from './utils/companyDataValidation'
 import { jsonParse } from './utils/parseTools'
@@ -60,6 +61,46 @@ export class IntercomService {
             data: {
               internal_id: params.company_id,
             },
+          },
+        })
+      }
+    })
+  }
+
+  public tagMultiple(params: ITagMultipleData): Promise<IIntercomServiceObject> {
+    return new Promise(async resolve => {
+      try {
+        const { intercom } = this
+        const name = params.name
+        const actionResult = await intercom.tags.tag({
+          name,
+          companies: params.companies,
+          users: params.users,
+        })
+        const tag = actionResult.body
+        resolve({
+          success: true,
+          data: {
+            result: tag,
+          },
+        })
+      } catch (error) {
+        const err = jsonParse(error.message) as IIntercomErrorResponse
+        const statusCode = err && err.statusCode ? err.statusCode : -1
+        const errorCode =
+          err && err.body && err.body.errors && err.body.errors[0]
+            ? err.body.errors[0].code
+            : 'unknown_error'
+        const errorMessage =
+          err && err.body && err.body.errors && err.body.errors[0]
+            ? err.body.errors[0].message
+            : `Error when creating/updating tags in Intercom.`
+        resolve({
+          success: false,
+          error: {
+            statusCode: statusCode,
+            code: errorCode,
+            message: errorMessage,
           },
         })
       }
