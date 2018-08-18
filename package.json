@@ -46,13 +46,13 @@
     "lint-staged": "^5.0.0",
     "prettier": "^1.8.2",
     "standard-version": "^4.2.0",
-    "ts-jest": "^21.2.2"
+    "ts-jest": "^21.2.2",
+    "typescript": "^2.6.1"
   },
   "dependencies": {
     "intercom-client": "^2.9.1",
     "lodash": "^4.17.4",
-    "request-rate-limiter": "^1.0.2",
-    "typescript": "^2.6.1"
+    "request-rate-limiter": "^1.0.2"
   },
   "jest": {
     "transform": {
