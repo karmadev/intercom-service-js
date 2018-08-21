@@ -13,7 +13,6 @@ import {
 } from './types'
 import { validateDataObject } from './utils/companyDataValidation'
 import { jsonParse } from './utils/parseTools'
-import { sanitizeLocale } from './utils/textUtils'
 
 export class IntercomService {
   private intercom
@@ -43,7 +42,8 @@ export class IntercomService {
           },
         })
       } catch (error) {
-        const err = jsonParse(error.message) as IIntercomErrorResponse
+        const fullErr = jsonParse(error)
+        const err = fullErr.message as IIntercomErrorResponse
         const errorCode =
           err && err.body && err.body.errors && err.body.errors[0]
             ? err.body.errors[0].code
@@ -85,7 +85,8 @@ export class IntercomService {
           },
         })
       } catch (error) {
-        const err = jsonParse(error.message) as IIntercomErrorResponse
+        const fullErr = jsonParse(error)
+        const err = fullErr.message as IIntercomErrorResponse
         const statusCode = err && err.statusCode ? err.statusCode : -1
         const errorCode =
           err && err.body && err.body.errors && err.body.errors[0]
@@ -141,7 +142,8 @@ export class IntercomService {
           })
         }
       } catch (error) {
-        const err = jsonParse(error.message) as IIntercomErrorResponse
+        const fullErr = jsonParse(error)
+        const err = fullErr.message as IIntercomErrorResponse
         const errorCode =
           err && err.body && err.body.errors && err.body.errors[0]
             ? err.body.errors[0].code
@@ -200,7 +202,8 @@ export class IntercomService {
           })
         }
       } catch (error) {
-        const err = jsonParse(error.message) as IIntercomErrorResponse
+        const fullErr = jsonParse(error)
+        const err = fullErr.message as IIntercomErrorResponse
         const statusCode = err && err.statusCode ? err.statusCode : -1
         const errorCode =
           err && err.body && err.body.errors && err.body.errors[0]
@@ -244,7 +247,8 @@ export class IntercomService {
           },
         })
       } catch (error) {
-        const err = jsonParse(error.message) as IIntercomErrorResponse
+        const fullErr = jsonParse(error)
+        const err = fullErr.message as IIntercomErrorResponse
         const errorCode =
           err && err.body && err.body.errors && err.body.errors[0]
             ? err.body.errors[0].code

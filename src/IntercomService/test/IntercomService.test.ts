@@ -1,6 +1,5 @@
 import { ICompanyDataObject, IUserDataObject, IDeleteUserObject } from '../types'
 import { IntercomService } from '../index'
-import { generateRandomUsers } from './utils/generateUsers'
 
 const intercomTestAPIToken = ''
 const liveTestCompanyId = '546484'
@@ -8,7 +7,7 @@ const liveTestUserId = '87465'
 const liveTestEmail = 'test.intercom@intercomtest.life'
 const liveTestFullName = 'Test McTestson'
 
-describe('#IntercomService createOrUpdateUser() integration test', () => {
+describe('#IntercomService createOrUpdateUser() mocked test', () => {
   test('should return expected values for valid object', async () => {
     const create = userData => {
       return new Promise(resolve => {
@@ -100,7 +99,7 @@ describe('#IntercomService createOrUpdateUser() LIVE integration test', () => {
   })
 })
 
-describe('#IntercomService createOrUpdateCompany() integration test', () => {
+describe('#IntercomService createOrUpdateCompany() mocked test', () => {
   test('should return expected values for valid object', async () => {
     const create = companyData => {
       return new Promise(resolve => {
@@ -179,7 +178,7 @@ describe('#IntercomService createOrUpdateCompany() LIVE integration test', () =>
   })
 })
 
-describe('#IntercomService deleteUser() integration test', () => {
+describe('#IntercomService deleteUser() mocked test', () => {
   test('should return expected values for valid object', async () => {
     const deleteUser = userData => {
       return new Promise(resolve => {
@@ -257,7 +256,7 @@ describe('#IntercomService deleteUser() LIVE integration test', () => {
   })
 })
 
-describe('#IntercomService tagCompany() integration test', () => {
+describe('#IntercomService tagCompany() mocked test', () => {
   test('should return expected values for valid object', async () => {
     const tag = tagData => {
       return new Promise(resolve => {
