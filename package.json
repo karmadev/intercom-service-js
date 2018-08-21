@@ -42,15 +42,15 @@
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.4.0",
     "husky": "^0.14.3",
-    "jest": "^21.2.1",
+    "jest": "^23.5.0",
     "lint-staged": "^5.0.0",
     "prettier": "^1.8.2",
     "standard-version": "^4.2.0",
-    "ts-jest": "^21.2.2",
-    "typescript": "^2.6.1"
+    "ts-jest": "^23.1.4",
+    "typescript": "^3.0.1"
   },
   "dependencies": {
-    "intercom-client": "^2.9.1",
+    "intercom-client": "^2.10.2",
     "lodash": "^4.17.4",
     "request-rate-limiter": "^1.0.2"
   },
