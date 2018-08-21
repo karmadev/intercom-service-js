@@ -50,7 +50,7 @@
     "typescript": "^2.6.1"
   },
   "dependencies": {
-    "intercom-client": "^2.9.1",
+    "intercom-client": "^2.10.2",
     "lodash": "^4.17.4",
     "request-rate-limiter": "^1.0.2"
   },
